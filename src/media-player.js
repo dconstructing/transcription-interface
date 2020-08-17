@@ -24,6 +24,7 @@ export class MediaPlayer extends LitElement {
 	firstUpdated(changedProperties) {
 		console.log('player first updated');
 		this.player = this.shadowRoot.getElementById('player');
+		const self = this;
 		console.log('player', this.player);
 		document.addEventListener('keydown', this.handleKeyDown.bind(this));
 		if ("mediaSession" in navigator) {
@@ -31,10 +32,12 @@ export class MediaPlayer extends LitElement {
 			navigator.mediaSession.setActionHandler('play', function(e) {
 				// User hit "Play" key.
 				console.log('play', e);
+				self.playPause();
 			});
 			navigator.mediaSession.setActionHandler('pause', function(e) {
 				// User hit "Pause" key.
 				console.log('pause', e);
+				self.playPause();
 			});
 		} else {
 			console.log('no media session in navigator');
